@@ -1,0 +1,4 @@
+.vscode
+.env
+alembic.ini
+**/__pycache__

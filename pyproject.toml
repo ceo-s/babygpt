@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "babygpt"
+version = "0.1.0"
+description = ""
+authors = ["ceo-s <alex_s_2002@mail.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pydantic = "^2.1.1"
+aiogram = "3.0.0b9"
+sqlalchemy = "^2.0.19"
+alembic = "^1.11.1"
+python-dotenv = "^1.0.0"
+asyncpg = "^0.28.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
