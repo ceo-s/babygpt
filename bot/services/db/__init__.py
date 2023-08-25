@@ -1,7 +1,6 @@
 from os import getenv
 import aiohttp
-from typing import Literal, Any
-from pydantic import BaseModel, Json
+from typing import Literal
 
 from . import models as M
 
@@ -34,22 +33,11 @@ async def authenticate_user(user: M.User) -> bool:
             response_data = await response.json()
             return response_data["authenticated"]
 
-# USER_ATTRS = Literal[
-#     "username",
-#     "first_name",
-#     "settings",
-# ]
-
-# USER_SETTINGS_ATTRS = Literal[
-#     "model_temperature",
-#     "prompt",
-#     "history",
-# ]
-
 
 async def get_user_data(user: M.OUser) -> M.User:
     async with aiohttp.ClientSession() as session:
-        async with session.post(API.get_url('get_user_data'), json=user.model_dump()) as response:
+
+        async with session.post(API.get_url('get_user_data'), json=user.model_dump(by_alias=True)) as response:
             response_data = await response.json()
             return M.User(**response_data)
 
@@ -57,13 +45,13 @@ async def get_user_data(user: M.OUser) -> M.User:
 async def update_user_data(user: M.OUser):
     async with aiohttp.ClientSession() as session:
 
-        async with session.post(API.get_url('update_user_data'), json=user.model_dump()) as response:
+        async with session.post(API.get_url('update_user_data'), json=user.model_dump(by_alias=True)) as response:
             await response.json()
 
 
 async def update_model_documents(user_id: int, username: str, text: str):
-
     async with aiohttp.ClientSession() as session:
+
         async with session.get(API.get_url('update_documents'), params={"user_id": user_id, "username": username, "document_text": text}) as response:
             response_data = await response.json()
             return response_data["succ"]

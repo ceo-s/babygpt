@@ -3,7 +3,6 @@ from aiogram import F
 from aiogram import Dispatcher
 from aiogram.filters.command import Command
 from aiogram.enums.parse_mode import ParseMode
-from sqlalchemy.orm import sessionmaker as _sessionmaker
 
 
 from aiogram.fsm.state import StatesGroup, State

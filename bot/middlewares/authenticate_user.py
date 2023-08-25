@@ -1,10 +1,6 @@
 from typing import Awaitable, Callable, Dict, Any
 from aiogram import BaseMiddleware
 from aiogram.types import Message
-from sqlalchemy.orm import sessionmaker as _sessionmaker
-from sqlalchemy import select, insert
-from sqlalchemy.ext.asyncio import AsyncSession
-from pprint import pp
 
 from ..services.db import models as M, authenticate_user
 

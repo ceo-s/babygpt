@@ -1,17 +1,17 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Optional
 
 
 class Settings(BaseModel):
     history: list[dict[str, str]]
     prompt: str
-    model_temperature: float
+    temperature: float = Field(None, alias="model_temperature")
 
 
 class OSettings(BaseModel):
     history: Optional[list[dict[str, str]]] = None
     prompt: Optional[str] = None
-    model_temperature: Optional[float] = None
+    temperature: Optional[float] = Field(None, alias="model_temperature")
 
 
 class User(BaseModel):
