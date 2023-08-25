@@ -13,19 +13,16 @@ class ReplyKeyboards:
         kb = ReplyKeyboardBuilder()
         kb.add(
             KeyboardButton(text="Промпт"),
-            # KeyboardButton(
-            #     text="История",
-            #     web_app=WebAppInfo(
-            #         url=f"{cls.__URL}/pages/history-menu/{user_id}")
-            # ),
-            # KeyboardButton(
-            #     text="Креативность",
-            #     web_app=WebAppInfo(
-            #         url=f"{cls.__URL}/pages/creativity/{user_id}",
-            #     )),
-        )
-        kb.row(
-            KeyboardButton(text="Добавить документ")
+            KeyboardButton(
+                text="История",
+                web_app=WebAppInfo(
+                    url=f"{cls.__URL}/pages/history-menu/{user_id}")
+            ),
+            KeyboardButton(
+                text="Креативность",
+                web_app=WebAppInfo(
+                    url=f"{cls.__URL}/pages/creativity/{user_id}",
+                )),
         )
         kb.row(
             KeyboardButton(text="Информация"), KeyboardButton(text="Задачи")

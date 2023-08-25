@@ -141,4 +141,4 @@ def register_handlers(dp: Dispatcher) -> None:
         ContentType.WEB_APP_DATA,))
     dp.message.register(get_info,  F.text == "Информация")
 #     dp.message.register(get_tasks, F.text == "Задачи")
-    # dp.message.register(any_message)
+    dp.message.register(any_message)
