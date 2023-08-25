@@ -1,1 +1,1 @@
-from .filters import Authorized
+from .filters import Authenticated

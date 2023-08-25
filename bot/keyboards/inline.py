@@ -12,3 +12,14 @@ class InlineKeyboards:
                                  callback_data=callback_data,  **kwargs)
         )
         return kb.as_markup()
+
+    @staticmethod
+    def info(drive_url: str = None, callback_data: str = None, **kwargs) -> InlineKeyboardMarkup:
+        kb = InlineKeyboardMarkup(inline_keyboard=[
+            [InlineKeyboardButton(
+                text="Помощь", url="https://t.me/ceo_of_seks")],
+            [InlineKeyboardButton(text="Гугл диск",
+                                       url=f"https://drive.google.com/drive/folders/{drive_url}?usp=sharing")],
+        ])
+
+        return kb

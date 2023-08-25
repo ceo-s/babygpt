@@ -4,7 +4,6 @@ import asyncio
 from bot import DISPATCHER, BOT
 from bot.handlers import register_handlers
 from bot.middlewares import register_middlewares
-from db import get_sessionmaker
 
 load_dotenv(".env")
 
@@ -15,8 +14,7 @@ def setup():
 
 
 async def main():
-    sessionmaker = get_sessionmaker()
-    await DISPATCHER.start_polling(BOT, sessionmaker=sessionmaker)
+    await DISPATCHER.start_polling(BOT)
 
 
 if __name__ == "__main__":

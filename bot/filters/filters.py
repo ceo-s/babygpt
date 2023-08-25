@@ -6,7 +6,7 @@ from pprint import pp
 router = Router()
 
 
-class Authorized(Filter):
+class Authenticated(Filter):
 
-    async def __call__(self, message: Message, authorized: bool) -> bool:
-        return authorized == True
+    async def __call__(self, message: Message, authenticated: bool) -> bool:
+        return authenticated == True

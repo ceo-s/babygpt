@@ -8,7 +8,7 @@ from aiogram.filters.command import Command
 
 # from llm.llm import ask_chain
 from ..keyboards import RK
-from ..filters import Authorized
+from ..filters import Authenticated
 
 
 class Tutorial(StatesGroup):
@@ -183,18 +183,18 @@ async def get_s11(message: Message, state: FSMContext):
         'Нет, можете добавлять вордовские файлы с расширением <b>.docx</b> , обычные текстовые <b>.txt</b> файлы и \
 файлы екселя <b>.xlsx</b> .\nТабличные данные будут сами переводиться в текст практически без изменений.\n\
 Думаю это удобно например для цен и расписания.\
-', parse_mode=ParseMode.HTML, reply_markup=RK.button("Ну ладно. Лучше тебя никто бы не объснил, спасибо!"))
+', parse_mode=ParseMode.HTML, reply_markup=RK.button("Ну ладно. Лучше тебя никто бы не объяснил, спасибо!"))
     await state.set_state(Tutorial.s12)
 
 
 async def get_s12(message: Message, state: FSMContext):
-    await message.answer('Не за что.\nНа этом всё, творите! Желаю удачи!', reply_markup=RK.main)
+    await message.answer('Не за что.\nНа этом всё, творите! Желаю удачи!', reply_markup=RK.main(message.from_user.id))
     await state.clear()
 
 
 def register_handlers(dp: Dispatcher) -> None:
     dp.message.register(get_start_for_admin, Command(
-        commands=["start"]), ~Authorized())
+        commands=["start"]), ~Authenticated())
     dp.message.register(get_s1, Tutorial.s1)
     dp.message.register(get_s2, Tutorial.s2)
     dp.message.register(get_s3, Tutorial.s3)

@@ -1,6 +1,5 @@
 from importlib import import_module
 from aiogram import Dispatcher
-from .base_handlers import register_handlers
 
 HANDLERS_MODULES = [
     "tutor_handlers",
