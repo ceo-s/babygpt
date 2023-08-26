@@ -97,7 +97,7 @@ async def get_s3(message: Message, state: FSMContext):
 
 После обучения у вас появится кнопка "Промпт".
 P.S. Кстати, как закончим, сможете добавить в резюме новый модный навык - prompt engineering.
-""", parse_mode=ParseMode.HTML, reply_markup=RK.button("Prompt engineering? Я мечтал об этом!"))
+""", parse_mode=ParseMode.HTML, reply_markup=RK.button("Prompt engineering? Я мечтал об этом!"), disable_web_page_preview=True)
     await state.set_state(Tutorial.s4)
 
 
@@ -124,7 +124,7 @@ async def get_s5(message: Message, state: FSMContext):
 Так же вы сможете очищать историю диалога, чтобы, например, после смены промпта, модель не путали её же старые ответы из истории диалога.
 
 После обучения у вас появится кнопка "История".
-""",  reply_markup=RK.button("Окей, давай дальше."))
+""", parse_mode=ParseMode.HTML, reply_markup=RK.button("Окей, давай дальше."), disable_web_page_preview=True)
     await state.set_state(Tutorial.s6)
 
 
@@ -181,12 +181,12 @@ async def get_s8(message: Message, state: FSMContext):
 Когда я говорю, что модель "читает" что-то, я на самом деле имею ввиду, что мы по определённому алгоритму выбираем, какой документ вероятнее всего содержит ответ на вопрос и отправляем его содержимое вместе с самим вопросом.
 
 Для самых любознательных - этот алгоритм основан на поиске ближайших соседей в пространстве <a href="https://www.pinecone.io/learn/what-is-similarity-search/">эмбеддингов</a>.
-""", reply_markup=RK.button("Окей, а загружать документы куда?"))
+""", parse_mode=ParseMode.HTML, reply_markup=RK.button("Окей, а загружать документы куда?"))
     await state.set_state(Tutorial.s9)
 
 
 async def get_s9(message: Message, state: FSMContext):
-    folder_id = get_drive_folder_id(message.from_user.id)
+    folder_id = await get_drive_folder_id(message.from_user.id)
     link = f"https://drive.google.com/drive/folders/{folder_id}?usp=drive_link"
     await message.answer(
         """
@@ -199,8 +199,9 @@ async def get_s9(message: Message, state: FSMContext):
 async def get_s10(message: Message, state: FSMContext):
     await message.answer(
         """Нет, можете добавлять вордовские файлы с расширением <b>.docx</b>, файлы формата гугл документ (как вордовский, но прям в гугл диске), обычные текстовые <b>.txt</b> файлы и файлы екселя <b>.xlsx</b> (ну или гугл таблицы).
+
 Табличные данные я перевожу в формат как на фото. То есть пока не очень разнообразно, но можно накидать FAQ.
-А может и не пока, может только так и оставлю. Сложность в том как мне определять стратегию парсинга файла при загрузке с гугл диска... Если есть идеи отпишите мне)
+А может и не пока, может только так и оставлю. Сложность в том, что мне не определить как мне парсить файлы при загрузке с гугл диска, без дополнительных указаний с вашей стороны. А это надо уже обсуждать... Если есть идеи отпишите мне)
 """, parse_mode=ParseMode.HTML, reply_markup=RK.button("А инфу откуда брать кста?"))
     await state.set_state(Tutorial.s11)
 
