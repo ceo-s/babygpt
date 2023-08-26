@@ -13,7 +13,7 @@ from aiogram.fsm.context import FSMContext
 from ..keyboards import RK, IK
 # update_prompt, erase_history,
 from bot.services.gptapi import chat_completion
-from bot.services.db import get_user_data, update_user_data, update_model_documents
+from bot.services.db import get_user_data, update_user_data, update_model_documents, get_drive_folder_id
 from bot.services.db import models as M
 
 
@@ -89,7 +89,7 @@ async def get_temperature(message: Message):
 
 
 async def get_info(message: Message) -> None:
-    user = await get_user_data(M.OUser(id=message.from_user.id))
+    folder_id = await get_drive_folder_id(message.from_user.id)
     await message.answer(
         """Продублирую наши цели на свякий.
 
@@ -111,7 +111,7 @@ async def get_info(message: Message) -> None:
 Некоторые ресурсы на английском, но они простые, поэтому либо вы всё поймёте либо переводчик браузера всё переведёт достаточно чётко.
 
 Если будет что то непонятно, повторюсь, пишите мне. Но так же можете спросить у бота. Он поумнее будет)
-""", parse_mode=ParseMode.HTML, reply_markup=IK.info(user.collection.dir_id))
+""", parse_mode=ParseMode.HTML, reply_markup=IK.info(folder_id))
 
 
 async def cancel_state(message: Message, state: FSMContext):

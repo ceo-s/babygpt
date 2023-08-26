@@ -181,7 +181,7 @@ async def get_s8(message: Message, state: FSMContext):
 Когда я говорю, что модель "читает" что-то, я на самом деле имею ввиду, что мы по определённому алгоритму выбираем, какой документ вероятнее всего содержит ответ на вопрос и отправляем его содержимое вместе с самим вопросом.
 
 Для самых любознательных - этот алгоритм основан на поиске ближайших соседей в пространстве <a href="https://www.pinecone.io/learn/what-is-similarity-search/">эмбеддингов</a>.
-""", parse_mode=ParseMode.HTML, reply_markup=RK.button("Окей, а загружать документы куда?"))
+""", parse_mode=ParseMode.HTML, reply_markup=RK.button("Окей, а загружать документы куда?"), disable_web_page_preview=True)
     await state.set_state(Tutorial.s9)
 
 
