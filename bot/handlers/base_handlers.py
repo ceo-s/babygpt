@@ -107,11 +107,11 @@ async def get_info(message: Message) -> None:
 - <a href="https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api">Формирования промпта.</a>
 ---новые---
 - <a href="https://habr.com/ru/articles/731056/">Про реализацию.</a>
------------
+----------------
 Некоторые ресурсы на английском, но они простые, поэтому либо вы всё поймёте либо переводчик браузера всё переведёт достаточно чётко.
 
 Если будет что то непонятно, повторюсь, пишите мне. Но так же можете спросить у бота. Он поумнее будет)
-""", parse_mode=ParseMode.HTML, reply_markup=IK.info(folder_id))
+""", parse_mode=ParseMode.HTML, reply_markup=IK.info(folder_id), disable_web_page_preview=True)
 
 
 async def cancel_state(message: Message, state: FSMContext):
