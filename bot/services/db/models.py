@@ -16,7 +16,7 @@ class OSettings(BaseModel):
 
 class User(BaseModel):
     id: int
-    username: str
+    username: Optional[str] = None
     first_name: str
     settings: Optional[OSettings] = None
     collection: Optional["Collection"] = None
