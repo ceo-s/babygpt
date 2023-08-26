@@ -14,7 +14,7 @@ class InlineKeyboards:
         return kb.as_markup()
 
     @staticmethod
-    def info(drive_url: str = None, callback_data: str = None, **kwargs) -> InlineKeyboardMarkup:
+    def info(drive_url: str) -> InlineKeyboardMarkup:
         kb = InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(
                 text="Помощь", url="https://t.me/ceo_of_seks")],

@@ -25,7 +25,7 @@ class ReplyKeyboards:
                 )),
         )
         kb.row(
-            KeyboardButton(text="Информация"), KeyboardButton(text="Задачи")
+            KeyboardButton(text="Информация")
         )
         return kb.as_markup(resize_keyboard=True)
 

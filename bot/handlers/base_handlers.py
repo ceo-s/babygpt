@@ -23,12 +23,14 @@ from bot.services.db import models as M
 
 async def get_start(message: Message) -> None:
     await message.answer(
-        """
-Добро пожаловать!
+        """"Добро пожаловать!
 
 Я - виртуальный менеджер детского центра IQ Baby Palace.
 Я создан на основе большой языковой модели GPT4, поэтому смогу ответить на любые вопросы (по нашему клубу), заданные в свободной форме!
-В этом боте вы сможете отслеживать ваши занятия, записываться на мастер-классы и получать консультации 24/7.""",
+В этом боте вы сможете отслеживать ваши занятия, записываться на мастер-классы и получать консультации 24/7."
+
+Наверное этот текст будут видеть пользователи бота. Чё думаете?
+""",
         reply_markup=RK.main(message.from_user.id))
 
 
@@ -75,18 +77,6 @@ async def get_documents(message: Message, state: FSMContext):
     await message.answer(result)
     await state.clear()
 
-# async def get_history(message: Message):
-#     user = await get_user_data(message.from_user.id)
-#     await message.answer(user.first_name)
-
-
-# async def reset_history(message: Message):
-#     try:
-#         await erase_history(message.from_user.id)
-#         await message.answer("История очищена!")
-#     except Exception as ex:
-#         await message.answer(ex)
-
 
 async def get_temperature(message: Message):
     await update_user_data(
@@ -101,20 +91,27 @@ async def get_temperature(message: Message):
 async def get_info(message: Message) -> None:
     user = await get_user_data(M.OUser(id=message.from_user.id))
     await message.answer(
-        'Здесь всякая инфа. \n\
-', parse_mode=ParseMode.HTML, reply_markup=IK.info(user.collection.dir_id))
+        """Продублирую наши цели на свякий.
 
+Необходимо "натренировать" ассистента так, чтобы он:
+1. Был вежлив
+2. Правильно отвечал на любой вопрос по IQBabyPalace
+3. Отвечал на вопросы по воспитанию детей и все в этом духе
+4. НЕ отвечал на вопросы не связанные с этим ( скорее отвечал, что это вопрос не по теме)
+5. НЕНАВЯЗЧИВО предлагал наши услуги, если это позволяет контекст
+6. Не придумывал отсебятину, путающую клиентов
+        
+Ссылки на полезную инфу:
+- <a href="https://www.pinecone.io/learn/what-is-similarity-search/">Эмбеддинги.</a>
+- <a href="https://ya.zerocoder.ru/kak-pisat-effektivnye-promty-dlya-nejroseti/">Основы промпт енджинеринга.</a>
+- <a href="https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api">Формирования промпта.</a>
+---новые---
+- <a href="https://habr.com/ru/articles/731056/">Про реализацию.</a>
+-----------
+Некоторые ресурсы на английском, но они простые, поэтому либо вы всё поймёте либо переводчик браузера всё переведёт достаточно чётко.
 
-# async def get_tasks(message: Message) -> None:
-#     await message.answer(
-#         'Нам необходимо его "натренировать" так, чтобы он:\n\
-# 1. Был вежлив\n\
-# 2. Правильно отвечал на любой вопрос по BabyPalace\n\
-# 3. Отвечал на вопросы по воспитанию детей и все в этом духе\n\
-# 4. НЕ отвечал на вопросы не связанные с этим ( скорее отвечал, что это вопрос не по теме)\n\
-# 5. НЕНАВЯЗЧИВО предлагал наши услуги, если это позволяет контекст\n\
-# 6. Не придумывала отсебятину, путающую клиентов. (Да так бывает)\n\n\
-# ')
+Если будет что то непонятно, повторюсь, пишите мне. Но так же можете спросить у бота. Он поумнее будет)
+""", parse_mode=ParseMode.HTML, reply_markup=IK.info(user.collection.dir_id))
 
 
 async def cancel_state(message: Message, state: FSMContext):
@@ -135,9 +132,7 @@ def register_handlers(dp: Dispatcher) -> None:
     dp.message.register(get_new_prompt,  PromptReset.s1)
     dp.message.register(update_documents, F.text == "Добавить документ")
     dp.message.register(get_documents, DocsLoad.s1)
-#     dp.message.register(get_history,  F.text == "История")
     dp.message.register(get_temperature,  F.content_type.in_(
         ContentType.WEB_APP_DATA,))
     dp.message.register(get_info,  F.text == "Информация")
-#     dp.message.register(get_tasks, F.text == "Задачи")
     dp.message.register(any_message)
