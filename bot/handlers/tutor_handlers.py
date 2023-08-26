@@ -205,7 +205,7 @@ async def get_s10(message: Message, state: FSMContext):
 """, parse_mode=ParseMode.HTML, reply_markup=RK.button("А инфу откуда брать кста?"))
 
     media = (InputMediaPhoto(media=FSInputFile("media/table.png")),
-             InputMediaPhoto(FSInputFile("media/text.png")))
+             InputMediaPhoto(media=FSInputFile("media/text.png")))
 
     await message.answer_media_group(media)
     await state.set_state(Tutorial.s11)
