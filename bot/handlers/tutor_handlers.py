@@ -1,4 +1,4 @@
-from aiogram.types import Message, FSInputFile
+from aiogram.types import Message, FSInputFile, InputMediaPhoto
 from aiogram import F
 from aiogram.enums.parse_mode import ParseMode
 from aiogram.fsm.context import FSMContext
@@ -203,7 +203,10 @@ async def get_s10(message: Message, state: FSMContext):
 Табличные данные я перевожу в формат как на фотографиях ниже. То есть пока не очень разнообразно, но можно накидать FAQ.
 А может и не пока, может только так и оставлю. Сложность в том, что мне не определить как мне парсить файлы при загрузке с гугл диска, без дополнительных указаний с вашей стороны. А это надо уже обсуждать... Если есть идеи отпишите мне)
 """, parse_mode=ParseMode.HTML, reply_markup=RK.button("А инфу откуда брать кста?"))
-    media = (FSInputFile("media/table.png"), FSInputFile("media/text.png"))
+
+    media = (InputMediaPhoto(media=FSInputFile("media/table.png")),
+             InputMediaPhoto(FSInputFile("media/text.png")))
+
     await message.answer_media_group(media)
     await state.set_state(Tutorial.s11)
 
