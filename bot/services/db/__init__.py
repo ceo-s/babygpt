@@ -33,8 +33,11 @@ class API:
 async def authenticate_user(user: M.User) -> bool:
     async with aiohttp.ClientSession() as session:
         async with session.post(API.get_url('auth_user'), json=user.model_dump()) as response:
-            response_data = await response.json()
-            return response_data["authenticated"]
+
+            if response.status == 200:
+                return True
+            elif response.status == 201:
+                return False
 
 
 async def get_user_data(user: M.OUser) -> M.User:

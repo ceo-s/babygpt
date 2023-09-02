@@ -20,9 +20,6 @@ class Authenticate(BaseMiddleware):
             first_name=event.from_user.first_name,
         ))
 
-        if user_in_database:
-            data["authenticated"] = True
-        else:
-            data["authenticated"] = False
+        data['authenticated'] = user_in_database
 
         return await handler(event, data)
